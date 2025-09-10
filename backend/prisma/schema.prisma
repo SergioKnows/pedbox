@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model RedditData {
+  id           Int      @id @default(autoincrement())
+  displayName  String   @unique      @map("display_name") // p/ evitar duplicados
+  title        String?
+  subscribers  Int?
+  over18       Boolean? @map("over_18")
+  createdAt    DateTime?
+  iconImg      String?  @map("icon_img")
+  url          String?
+  publicDescription String?
+  lang         String?
+  bannerImg    String?
+
+  @@index([subscribers])
+}
