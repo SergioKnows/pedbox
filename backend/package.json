@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "import:reddits": "node scripts/fetchReddit.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "fetch:reddits": "node scripts/manualFetchRedditData.js",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",

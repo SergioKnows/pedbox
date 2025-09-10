@@ -5,8 +5,8 @@ const prisma = new PrismaClient();
 const URL = "https://www.reddit.com/reddits.json";
 const UA = "pedbox-tech-test/1.0 (by pedboxUser)";
 
-// Importa los datos de los subreddits a la base de datos.
-export async function importRedditData() {
+// Obtiene los datos de los subreddits desde Reddit y los guarda en la base de datos.
+export async function fetchRedditData() {
 
     try {
         // 1) Descargar datos desde la API de Reddit

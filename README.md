@@ -10,7 +10,7 @@ npx prisma migrate dev --name add-more-fields
 npx prisma generate
 
 ### Para Actualizar la tabla desde el back usar el siguiente script (se debe estar en la ruta /backend):
-npm run import:reddits
+npm run fetch:reddits
 
 
 ## FRONTEND INSTRUCTIONS:
