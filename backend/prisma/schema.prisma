@@ -28,3 +28,11 @@ model RedditData {
 
   @@index([subscribers])
 }
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("user")
+  createdAt    DateTime @default(now())
+}

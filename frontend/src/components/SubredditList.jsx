@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { subredditService } from "../services/api";
 
@@ -12,11 +12,7 @@ const SubredditList = () => {
     total: 0,
   });
 
-  useEffect(() => {
-    fetchSubreddits();
-  }, [pagination.page, pagination.pageSize]);
-
-  const fetchSubreddits = async () => {
+  const fetchSubreddits = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -37,7 +33,11 @@ const SubredditList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [pagination.page, pagination.pageSize]);
+
+  useEffect(() => {
+    fetchSubreddits();
+  }, [fetchSubreddits]);
 
   const handlePageChange = (newPage) => {
     setPagination((prev) => ({ ...prev, page: newPage }));

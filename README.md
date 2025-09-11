@@ -12,14 +12,22 @@ cd backend
 npm install
 npm run dev
 ```
-- Si se añaden campos en el schema.prisma usar
+- Si se añaden campos en el schema.prisma usar (ejecutar en /backend)
 ```bash
 npx prisma migrate dev --name add-more-fields
 npx prisma generate
 ```
-- Para actualizar la Database desde el back (ejecutar en /backend):
+- Actualizar la Database (ejecutar en /backend)
 ```bash
 npm run fetch:reddits
+```
+- Borrar datos de la Database (ejecutar en /backend)
+```bash
+npx prisma migrate reset
+```
+- Visualizar Database en interfaz web (ejecutar en /backend)
+```bash
+npx prisma studio
 ```
 
 ## INSTRUCCIONES FRONTEND:
