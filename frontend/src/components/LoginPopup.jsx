@@ -7,6 +7,7 @@ export default function LoginPopup({ isOpen, onLogin, onClose }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -17,6 +18,25 @@ export default function LoginPopup({ isOpen, onLogin, onClose }) {
       onLogin();
     } catch (err) {
       setError(err.response?.data?.error || 'Error de login');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Register
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      await authService.register(email, password);
+      setError('Usuario registrado exitosamente. Ahora puedes hacer login.');
+      // Limpiar campos después del registro
+      setEmail('');
+      setPassword('');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Error de registro');
     } finally {
       setLoading(false);
     }
@@ -41,7 +61,7 @@ export default function LoginPopup({ isOpen, onLogin, onClose }) {
           ×
         </button>
         
-        <h2 className="text-xl font-bold text-center mb-4">Iniciar Sesión</h2>
+        <h2 className="text-xl font-bold text-center mb-4">Login / Registro</h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -67,16 +87,29 @@ export default function LoginPopup({ isOpen, onLogin, onClose }) {
           </div>
 
           {error && (
-            <p className="text-red-500 text-sm">{error}</p>
+            <p className={`text-sm ${error.includes('exitosamente') ? 'text-green-600' : 'text-red-500'}`}>
+              {error}
+            </p>
           )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-purple-700 text-white py-2 rounded-md disabled:opacity-50 cursor-pointer active:scale-95"
-          >
-            {loading ? 'Cargando...' : 'Entrar'}
-          </button>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handleRegister}
+              disabled={loading}
+              className="flex-1 bg-blue-500 text-white py-2 rounded-md disabled:opacity-50 cursor-pointer active:scale-95 hover:bg-blue-600"
+            >
+              {loading ? 'Cargando...' : 'Registrar'}
+            </button>
+            
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-purple-700 text-white py-2 rounded-md disabled:opacity-50 cursor-pointer active:scale-95 hover:bg-purple-800"
+            >
+              {loading ? 'Cargando...' : 'Entrar'}
+            </button>
+          </div>
         </form>
       </div>
     </div>
