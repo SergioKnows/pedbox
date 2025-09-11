@@ -71,7 +71,7 @@ const SubredditDetail = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-3 md:p-6 overflow-hidden">
       {/* Botón de regreso */}
       <Link
         to="/"
@@ -92,23 +92,23 @@ const SubredditDetail = () => {
       )}
 
       {/* Header del subreddit */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <div className="flex items-start space-x-6">
+      <div className="bg-white rounded-lg shadow-md p-3 md:p-6 mb-6">
+        <div className="flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-6">
           {subreddit.iconImg && (
             <img
               src={subreddit.iconImg}
               alt={subreddit.displayName}
-              className="w-20 h-20 rounded-full object-cover"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover mx-auto md:mr-4"
             />
           )}
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <div className="flex-1 w-full">
+            <h1 className="text-lg md:text-3xl font-bold text-gray-900 mb-2 text-center md:text-left">
               r/{subreddit.displayName}
             </h1>
             {subreddit.title && (
-              <p className="text-xl text-gray-600 mb-4">{subreddit.title}</p>
+              <p className="text-base md:text-xl text-gray-600 mb-4 text-center md:text-left">{subreddit.title}</p>
             )}
-            <div className="flex items-center space-x-6 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-6 text-xs md:text-sm text-gray-500">
               <span className="flex items-center">
                 👥 {subreddit.subscribers?.toLocaleString() || 0} suscriptores
               </span>

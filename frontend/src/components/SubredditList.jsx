@@ -14,7 +14,7 @@ const SubredditList = () => {
 
   useEffect(() => {
     fetchSubreddits();
-  }, [pagination.page]);
+  }, [pagination.page, pagination.pageSize]);
 
   const fetchSubreddits = async () => {
     try {
@@ -41,6 +41,14 @@ const SubredditList = () => {
 
   const handlePageChange = (newPage) => {
     setPagination((prev) => ({ ...prev, page: newPage }));
+  };
+
+  const handlePageSizeChange = (newPageSize) => {
+    setPagination((prev) => ({ 
+      ...prev, 
+      pageSize: parseInt(newPageSize), 
+      page: 1 // Reset a página 1 cuando cambie el tamaño
+    }));
   };
 
   const totalPages = Math.ceil(pagination.total / pagination.pageSize);
@@ -73,11 +81,32 @@ const SubredditList = () => {
         Temas populares de Reddit
       </h1>
 
-      {/* Estadísticas */}
-      <div className="bg-blue-50 p-4 rounded-lg mb-6 text-center">
-        <p className="text-blue-800">
-          Mostrando {subreddits.length} de {pagination.total} Resultados
-        </p>
+      {/* Estadísticas y controles */}
+      <div className="flex flex-col justify-center items-center bg-blue-50 p-4 rounded-lg mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <p className="text-blue-800">
+            Mostrando {subreddits.length} de {pagination.total} Resultados
+          </p>
+          
+          {/* Selector de elementos por página */}
+          <div className="flex  items-center gap-2">
+            <label htmlFor="pageSize" className="text-blue-800 font-medium">
+              Mostrar:
+            </label>
+            <select
+              id="pageSize"
+              value={pagination.pageSize}
+              onChange={(e) => handlePageSizeChange(e.target.value)}
+              className="px-3 py-1 border border-blue-300 rounded-md bg-white text-blue-800 focus:outline-none focus:ring-1 focus:ring-purple-500 cursor-pointer"
+            >
+              <option value={3}>3</option>
+              <option value={6}>6</option>
+              <option value={9}>9</option>
+              <option value={20}>20</option>
+            </select>
+            <span className="text-blue-800">por página</span>
+          </div>
+        </div>
       </div>
 
       {/* Lista de subreddits */}
