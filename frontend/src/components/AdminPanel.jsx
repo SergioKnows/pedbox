@@ -64,7 +64,7 @@ export default function AdminPanel({ onDataChange }) {
               </>
             ) : (
               <>
-                🔄 Cargar Datos de Reddit
+                🔄 Cargar Datos
               </>
             )}
           </button>
@@ -81,7 +81,7 @@ export default function AdminPanel({ onDataChange }) {
               </>
             ) : (
               <>
-                🗑️ Borrar Todos los Datos
+                🗑️ Borrar Datos
               </>
             )}
           </button>

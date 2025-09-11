@@ -61,3 +61,4 @@ npm run dev
 npm run test
 npm run test:ui
 ```
+- Vercel Deploy: https://pedbox.vercel.app/
