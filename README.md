@@ -3,7 +3,11 @@
 ## VARIABLES DE ENTORNO:
 - En el directorio **/backend** crea un archivo `.env` con el siguiente contenido:
 ```bash
+PORT= 3000
 DATABASE_URL="file:./dev.db"
+JWT_EXPIRES_IN="1h"
+BCRYPT_ROUNDS="10"
+JWT_SECRET=$2a$12$IbwQFO/I0sRAPDtgdtNpDOwlCutzAqzJlJUiYYndHcJN7wJWIMTEW
 ```
 ## INSTRUCCIONES BACKEND: Ejecutar en /backend
 - Instalar dependencias y levantar servidor local
