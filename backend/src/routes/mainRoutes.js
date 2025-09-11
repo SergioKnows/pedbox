@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
             'GET /api/subreddits': 'Listar subreddits con paginación',
             'GET /api/subreddits/:id': 'Obtener detalle de subreddit',
             'POST /api/subreddits/fetch': 'Obtener datos de Reddit',
+            'DELETE /api/subreddits': 'Borrar todos los datos',
             'GET /api/me': 'Obtener información del usuario'
         }
     });
@@ -21,6 +22,7 @@ router.get('/', (req, res) => {
 // Rutas para subreddits
 router.get('/subreddits', subredditController.getSubreddits);                    // GET /api/subreddits
 router.post('/subreddits/fetch', subredditController.fetchRedditData);          // POST /api/subreddits/fetch
+router.delete('/subreddits', subredditController.clearAllData);                 // DELETE /api/subreddits
 router.get('/subreddits/:id', subredditController.getSubredditById);              // GET /api/subreddits/:id
 
 // Rutas para autenticación

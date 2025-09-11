@@ -60,6 +60,18 @@ const subredditController = {
             console.error('Error al obtener datos:', error);
             res.status(500).json({ error: "Fetch failed" });
         }
+    },
+
+    // Borrar todos los datos
+    clearAllData: async (req, res) => {
+        try {
+            const deleted = await prisma.redditData.deleteMany({});
+            console.log(`Se borraron ${deleted.count} registros`);
+            res.json({ deleted: deleted.count });
+        } catch (error) {
+            console.error('Error al borrar datos:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
     }
 };
 

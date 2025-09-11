@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import SubredditList from "./SubredditList";
 import SubredditDetail from "./SubredditDetail";
+import AdminPanel from "./AdminPanel";
 
 export default function Home({ key }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -9,6 +10,7 @@ export default function Home({ key }) {
     const token = localStorage.getItem('token');
     return !!token;
   });
+  const [dataRefreshKey, setDataRefreshKey] = useState(0);
 
   // Verificar autenticación cuando cambie la key
   useEffect(() => {
@@ -17,6 +19,11 @@ export default function Home({ key }) {
     console.log('Home - Token:', token, 'Authenticated:', authStatus);
     setIsAuthenticated(authStatus);
   }, [key]);
+
+  // Función para manejar cambios de datos
+  const handleDataChange = () => {
+    setDataRefreshKey(prev => prev + 1);
+  };
 
   // Si no está autenticado, mostrar mensaje
   if (!isAuthenticated) {
@@ -38,10 +45,18 @@ export default function Home({ key }) {
 
   return (
     <main>
-      <Routes>
-        <Route path="/" element={<SubredditList />} />
-        <Route path="/subreddit/:id" element={<SubredditDetail />} />
-      </Routes>
+      <div className="max-w-6xl mx-auto p-6">
+        {/* Panel de administración - solo en la página principal */}
+        <Routes>
+          <Route path="/" element={
+            <>
+              <AdminPanel onDataChange={handleDataChange} />
+              <SubredditList key={dataRefreshKey} />
+            </>
+          } />
+          <Route path="/subreddit/:id" element={<SubredditDetail />} />
+        </Routes>
+      </div>
     </main>
   );
 }

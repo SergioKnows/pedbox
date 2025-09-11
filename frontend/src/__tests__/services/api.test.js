@@ -9,17 +9,43 @@
  * Utiliza mocks de axios para simular las respuestas HTTP
  */
 
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+// Mock localStorage
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
+}
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock
+})
+
 // Mock de axios con hoisting para evitar errores de inicialización
-const mockApi = vi.hoisted(() => ({ get: vi.fn(), post: vi.fn() }))
+const mockApi = vi.hoisted(() => ({ 
+  get: vi.fn(), 
+  post: vi.fn(),
+  interceptors: {
+    request: {
+      use: vi.fn()
+    }
+  }
+}))
+
 vi.mock('axios', () => ({
   default: {
     create: vi.fn(() => mockApi)
   }
 }))
+
 import { subredditService } from '../../services/api'
 
 describe('subredditService', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('getSubreddits hace petición GET correcta', async () => {
     const mockResponse = {
       data: {

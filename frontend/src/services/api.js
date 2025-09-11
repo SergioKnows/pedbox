@@ -55,6 +55,12 @@ export const subredditService = {
     fetchRedditData: async () => {
         const response = await api.post('/subreddits/fetch');
         return response.data;
+    },
+
+    // Borrar todos los datos
+    clearAllData: async () => {
+        const response = await api.delete('/subreddits');
+        return response.data;
     }
 };
 
