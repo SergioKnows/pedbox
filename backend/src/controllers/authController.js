@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -51,7 +51,7 @@ export const login = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN || '1h' }
         );
-        console.log('Usuario :', user);
+        console.log('Usuario logueado:', user);
         return res.json({ token });
     } catch (err) {
         console.error('Error en login:', err);

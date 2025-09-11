@@ -16,7 +16,7 @@ export default function Home({ key }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const authStatus = !!token;
-    console.log('Home - Token:', token, 'Authenticated:', authStatus);
+    console.log('Authenticated:', authStatus);
     setIsAuthenticated(authStatus);
   }, [key]);
 
